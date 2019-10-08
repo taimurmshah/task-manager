@@ -28,3 +28,6 @@ MongoClient.connect(
     const db = client.db(databaseName);
   }
 );
+
+
+//to start database: /Users/taimur/mongodb/bin/mongod --dbpath=/Users/taimur/mongodb-data
