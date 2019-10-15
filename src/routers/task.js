@@ -22,12 +22,20 @@ router.post("/tasks", auth, async (req, res) => {
 // GET /tasks?limit=10&skip=0
 //limit = number of items
 //skip = sets of limit#s to 'skip' over.
+//GET /tasks?sortBy=createdAt_desc
 router.get("/tasks", auth, async (req, res) => {
   const match = {};
+  const sort = {};
 
   //this logic works even if query is false bc it's a string, not a boolean value.
   if (req.query.completed) {
     match.completed = req.query.completed === "true";
+  }
+
+  if (req.query.sortBy) {
+    const sortQuery = req.query.sortBy.split(":");
+
+    sort[sortQuery[0]] = sortQuery[1] === "desc" ? -1 : 1;
   }
 
   try {
@@ -38,7 +46,8 @@ router.get("/tasks", auth, async (req, res) => {
         match,
         options: {
           limit: parseInt(req.query.limit),
-          skip: parseInt(req.query.skip)
+          skip: parseInt(req.query.skip),
+          sort
         }
       })
       .execPopulate();

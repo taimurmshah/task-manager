@@ -23,11 +23,12 @@ MongoClient.connect(
     if (error) {
       return console.log("Unable to connect to database");
     }
-
+    console.log("yer");
     //creates and manipulates db, returns reference object
     const db = client.db(databaseName);
   }
 );
 
+//  ----dbpath=/Users/taimur/mongodb-data
 
-//to start database: /Users/taimur/mongodb/bin/mongod --dbpath=/Users/taimur/mongodb-data
+//to start database: /usr/local/Cellar/mongodb-community/4.2.0/bin/mongod --dbpath=/Users/taimur/mongodb-data

@@ -63,6 +63,7 @@ userSchema.virtual("tasks", {
   foreignField: "owner"
 });
 
+//used at signup and login
 userSchema.methods.generateAuthToken = async function() {
   const user = this;
   const token = jwt.sign({ _id: user._id.toString() }, "thisismysecret");
@@ -103,6 +104,8 @@ userSchema.statics.findByCredentials = async (email, password) => {
 };
 
 //hash the plaintext password before saving; this is a type of middleware.
+//pre methods happen before the instance is created. in this case, it's
+//hashing the password so that it won't be saved as plaintext in the database.
 userSchema.pre("save", async function(next) {
   const user = this;
 
